@@ -19,9 +19,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { mainListItems, secondaryListItems } from "../components/listItems";
-import Chart from "../components/Chart";
-import Deposits from "../components/Deposits";
-import Orders from "../components/Orders";
+// import Chart from "../components/Chart";
+// import Deposits from "../components/Deposits";
+// import Orders from "../components/Orders";
 import Lottie from "react-lottie";
 import animationData from "../lotties/sailing-ship";
 import verifyDocumentData from "../lotties/document-verification";
@@ -165,7 +165,7 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+//   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
