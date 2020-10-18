@@ -8,7 +8,7 @@ Secure DME is a software designed to streamline the process of managing inventor
 
 * [Demo](#demo)
 * [Documentation](#documentation)
-* [Technical Support or Questions](#technical-support-or-questions)=
+* [Technical Support or Questions](#technical-support-or-questions)
 
 ## Demo
 
