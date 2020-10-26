@@ -35,14 +35,36 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
+import LoginButton from "components/Login/LoginButton";
+import MainForm from "views/Form/MainForm";
 
-const dashboardRoutes = [
+
+export const unAuthorizedRoutes = [
+  {
+    path: "/login",
+    name: "Login",
+    rtlName: "",
+    icon: "",
+    component: LoginButton,
+    layout: "/admin"
+  }
+]
+
+export const dashboardRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: DashboardPage,
+    layout: "/admin"
+  },
+  {
+    path: "/form",
+    name: "Form",
+    rtlName: "",
+    icon: "",
+    component: MainForm,
     layout: "/admin"
   },
   {
@@ -110,5 +132,3 @@ const dashboardRoutes = [
     layout: "/admin"
   }
 ];
-
-export default dashboardRoutes;
