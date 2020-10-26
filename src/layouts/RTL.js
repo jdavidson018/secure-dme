@@ -9,33 +9,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "components/Navbars/Navbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
-import routes from "routes.js";
+import {unAuthorizedRoutes, dashboardRoutes} from "routes.js";
 
 import styles from "assets/jss/material-dashboard-react/layouts/rtlStyle.js";
 
 import logo from "assets/img/reactlogo.png";
+import { useAuth0 } from '@auth0/auth0-react';
 
 let ps;
-
-const switchRoutes = (
-  <Switch>
-    {routes.map((prop, key) => {
-      if (prop.layout === "/rtl") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
-      return null;
-    })}
-    <Redirect from="/rtl" to="/rtl/rtl-page" />
-  </Switch>
-);
 
 const useStyles = makeStyles(styles);
 
@@ -45,23 +27,30 @@ export default function RTL({ ...rest }) {
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
   // states and functions
-  const [image, setImage] = React.useState(null);
-  const [color, setColor] = React.useState("blue");
-  const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
+  const [color] = React.useState("blue");
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleImageClick = (image) => {
-    setImage(image);
-  };
-  const handleColorClick = (color) => {
-    setColor(color);
-  };
-  const handleFixedClick = () => {
-    if (fixedClasses === "dropdown") {
-      setFixedClasses("dropdown show");
-    } else {
-      setFixedClasses("dropdown");
-    }
-  };
+
+  const {isAuthenticated} = useAuth0();
+  const routes = isAuthenticated ? dashboardRoutes : unAuthorizedRoutes;
+  
+  const switchRoutes = (
+    <Switch>
+      {routes.map((prop, key) => {
+        if (prop.layout === "/rtl") {
+          return (
+            <Route
+              path={prop.layout + prop.path}
+              component={prop.component}
+              key={key}
+            />
+          );
+        }
+        return null;
+      })}
+      <Redirect from="/rtl" to="/rtl/rtl-page" />
+    </Switch>
+  );
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -97,7 +86,6 @@ export default function RTL({ ...rest }) {
         routes={routes}
         logoText={"الإبداعية تيم"}
         logo={logo}
-        image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
         color={color}
@@ -120,7 +108,7 @@ export default function RTL({ ...rest }) {
           <div className={classes.map}>{switchRoutes}</div>
         )}
         {getRoute() ? <Footer /> : null}
-        <FixedPlugin
+        {/* <FixedPlugin
           handleImageClick={handleImageClick}
           handleColorClick={handleColorClick}
           bgColor={color}
@@ -128,7 +116,7 @@ export default function RTL({ ...rest }) {
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
           rtlActive
-        />
+        /> */}
       </div>
     </div>
   );

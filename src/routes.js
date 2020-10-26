@@ -33,13 +33,35 @@ import Person from "@material-ui/icons/Person";
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
+import LoginButton from "components/Login/LoginButton";
+import MainForm from "views/Form/MainForm";
 
-const dashboardRoutes = [
+
+export const unAuthorizedRoutes = [
+  {
+    path: "/login",
+    name: "Login",
+    rtlName: "",
+    icon: "",
+    component: LoginButton,
+    layout: "/admin"
+  }
+]
+
+export const dashboardRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
     icon: Dashboard,
     component: DashboardPage,
+    layout: "/admin"
+  },
+  {
+    path: "/form",
+    name: "Form",
+    rtlName: "",
+    icon: "",
+    component: MainForm,
     layout: "/admin"
   },
   {
@@ -92,5 +114,3 @@ const dashboardRoutes = [
   //   layout: "/admin"
   // }
 ];
-
-export default dashboardRoutes;

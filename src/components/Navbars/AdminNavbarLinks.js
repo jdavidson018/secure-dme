@@ -20,6 +20,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import {useAuth0} from '@auth0/auth0-react';
 
 const useStyles = makeStyles(styles);
 
@@ -27,6 +28,9 @@ export default function AdminNavbarLinks() {
   const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
+
+  const {logout, isAuthenticated} = useAuth0();
+
   const handleClickNotification = event => {
     if (openNotification && openNotification.contains(event.target)) {
       setOpenNotification(null);
@@ -47,6 +51,8 @@ export default function AdminNavbarLinks() {
   const handleCloseProfile = () => {
     setOpenProfile(null);
   };
+
+
   return (
     <div>
       <div className={classes.searchWrapper}>
@@ -206,12 +212,15 @@ export default function AdminNavbarLinks() {
                       Settings
                     </MenuItem>
                     <Divider light />
-                    <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                      Logout
-                    </MenuItem>
+
+                    {isAuthenticated && (
+                      <MenuItem
+                        onClick={() => logout()}
+                        className={classes.dropdownItem}
+                      >
+                        Logout
+                      </MenuItem>
+                    )}
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
