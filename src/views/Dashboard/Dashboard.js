@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -30,7 +30,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
 import { bugs, website, server } from "variables/general.js";
-
+import SecureDMEAPI from "../../api/SecureDMEAPI";
 import {
   dailySalesChart,
   emailsSubscriptionChart,
@@ -43,6 +43,16 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
   const classes = useStyles();
+
+  useEffect(() => {
+    getValue();
+  }, []);
+
+  const getValue = async () => {
+    const characters = await SecureDMEAPI.get("character/GetAll");
+    console.log(characters);
+  };
+
   return (
     <div>
       <GridContainer>
