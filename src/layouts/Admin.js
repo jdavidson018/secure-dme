@@ -14,7 +14,8 @@ import { unAuthorizedRoutes, dashboardRoutes } from "routes.js";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import logo from "assets/img/reactlogo.png";
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "components/Login/LoginButton";
 
 let ps;
 
@@ -50,7 +51,7 @@ export default function Admin({ ...rest }) {
       <Redirect from="/admin" to="/admin/dashboard" />
     </Switch>
   );
-  
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -80,35 +81,70 @@ export default function Admin({ ...rest }) {
       window.removeEventListener("resize", resizeFunction);
     };
   }, [mainPanel]);
-  return (
-    <div className={classes.wrapper}>
-      <Sidebar
-        routes={routes}
-        logoText={"Secure DME"}
-        logo={logo}
-        handleDrawerToggle={handleDrawerToggle}
-        open={mobileOpen}
-        color={color}
-        {...rest}
-      />
-      <div className={classes.mainPanel} ref={mainPanel}>
-        {isAuthenticated && (
-          <Navbar
-            routes={routes}
-            handleDrawerToggle={handleDrawerToggle}
-            {...rest}
-          />
-        )}
-        {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-        {getRoute() ? (
-          <div className={classes.content}>
-            <div className={classes.container}>{switchRoutes}</div>
-          </div>
-        ) : (
+
+  if (isAuthenticated) {
+    return (
+      <div className={classes.wrapper}>
+        <Sidebar
+          routes={routes}
+          logoText={"Secure DME"}
+          logo={logo}
+          handleDrawerToggle={handleDrawerToggle}
+          open={mobileOpen}
+          color={color}
+          {...rest}
+        />
+        <div className={classes.mainPanel} ref={mainPanel}>
+          {isAuthenticated && (
+            <Navbar
+              routes={routes}
+              handleDrawerToggle={handleDrawerToggle}
+              {...rest}
+            />
+          )}
+          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+          {getRoute() ? (
+            <div className={classes.content}>
+              <div className={classes.container}>{switchRoutes}</div>
+            </div>
+          ) : (
             <div className={classes.map}>{switchRoutes}</div>
           )}
-        {getRoute() ? <Footer /> : null}
+          {getRoute() ? <Footer /> : null}
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className={classes.wrapper}>
+        <Sidebar
+          routes={routes}
+          logoText={"Secure DME"}
+          logo={logo}
+          handleDrawerToggle={handleDrawerToggle}
+          open={mobileOpen}
+          color={color}
+          {...rest}
+        />
+        <div className={classes.mainPanel} ref={mainPanel}>
+          {isAuthenticated && (
+            <Navbar
+              routes={routes}
+              handleDrawerToggle={handleDrawerToggle}
+              {...rest}
+            />
+          )}
+          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+          {getRoute() ? (
+            <div className={classes.content}>
+              <div className={classes.container}>{switchRoutes}</div>
+            </div>
+          ) : (
+            <div className={classes.map}>{switchRoutes}</div>
+          )}
+          {getRoute() ? <Footer /> : null}
+        </div>
+      </div>
+    );
+  }
 }
