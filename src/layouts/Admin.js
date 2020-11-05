@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "components/Navbars/Navbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import { unAuthorizedRoutes, dashboardRoutes } from "routes.js";
+import { unAuthorizedRoutes, dashboardRoutes, clientRoutes, providerRoutes } from "routes.js";
 
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
@@ -30,9 +30,20 @@ export default function Admin({ ...rest }) {
   const [color] = React.useState("blue");
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
 
-  const routes = isAuthenticated ? dashboardRoutes : unAuthorizedRoutes;
+  let routes = isAuthenticated ? dashboardRoutes : unAuthorizedRoutes;
+
+  console.log(user);
+  if(user){
+    let role = user["http://localhost:3000/role"];
+    if(role === "Client"){
+      routes = clientRoutes;
+    }else if(role === "Provider"){
+      routes = providerRoutes;
+    }
+    console.log(role);
+  }
 
   const switchRoutes = (
     <Switch>

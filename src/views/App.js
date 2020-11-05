@@ -19,9 +19,9 @@ const App = () => {
             <Route path="/admin" component={Admin} />
             <Route path="/splash" component={Splash} />
             {isAuthenticated && (
-            <Redirect from="/" to="/admin"/>
+              <Redirect from="/" to="/admin" />
             )}
-            <Redirect from="/" to="/splash"/>
+            <Redirect from="/" to="/splash" />
           </Switch>
         </Router>
       </>

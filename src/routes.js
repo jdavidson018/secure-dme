@@ -48,6 +48,63 @@ export const unAuthorizedRoutes = [
   }
 ]
 
+export const clientRoutes = [
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: Dashboard,
+    component: DashboardPage,
+    layout: "/admin"
+  },
+  {
+    path: "/form",
+    name: "Form",
+    rtlName: "",
+    icon: "",
+    component: MainForm,
+    layout: "/admin"
+  },
+  {
+    path: "/user",
+    name: "Order History",
+    icon: Person,
+    component: UserProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/table",
+    name: "Inventory",
+    icon: "content_paste",
+    component: TableList,
+    layout: "/admin"
+  },
+  {
+    path: "/table",
+    name: "Testing",
+    icon: "content_paste",
+    component: TableList,
+    layout: "/admin"
+  },
+];
+
+export const providerRoutes = [
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: Dashboard,
+    component: DashboardPage,
+    layout: "/admin"
+  },
+  {
+    path: "/form",
+    name: "clients",
+    rtlName: "",
+    icon: "",
+    component: MainForm,
+    layout: "/admin"
+  },
+];
+
 export const dashboardRoutes = [
   {
     path: "/dashboard",
