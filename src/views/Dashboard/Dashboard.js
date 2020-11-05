@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -38,19 +38,35 @@ import {
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const useStyles = makeStyles(styles);
 
+
 export default function Dashboard() {
   const classes = useStyles();
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     getValue();
   }, []);
 
   const getValue = async () => {
-    const characters = await SecureDMEAPI.get("character/GetAll");
-    console.log(characters);
+    try {
+      const token = await getAccessTokenSilently();
+      const response = await fetch('https://localhost:5001/character/GetAll', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+
+      // const characters = await SecureDMEAPI.get("character/GetAll");
+      // console.log(characters);
+
+    } catch(e) {
+      console.error(e);
+    }
   };
 
   return (
