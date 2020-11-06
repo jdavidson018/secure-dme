@@ -18,6 +18,9 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
+import ShoppingCartSharpIcon from '@material-ui/icons/ShoppingCartSharp';
+import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 // import LibraryBooks from "@material-ui/icons/LibraryBooks";
 // import BubbleChart from "@material-ui/icons/BubbleChart";
 // import LocationOn from "@material-ui/icons/LocationOn";
@@ -60,21 +63,29 @@ export const clientRoutes = [
     path: "/form",
     name: "Form",
     rtlName: "",
-    icon: "",
+    icon: FormatAlignJustifyIcon,
     component: MainForm,
     layout: "/admin"
   },
   {
-    path: "/user",
-    name: "Order History",
+    path: "/dispenses",
+    name: "Dispenses",
+    rtlName: "",
+    icon: ExitToAppIcon,
+    component: DashboardPage,
+    layout: "/admin"
+  },
+  {
+    path: "/physicians",
+    name: "Physicians",
     icon: Person,
     component: UserProfile,
     layout: "/admin"
   },
   {
-    path: "/table",
+    path: "/inventory",
     name: "Inventory",
-    icon: "content_paste",
+    icon: ShoppingCartSharpIcon,
     component: TableList,
     layout: "/admin"
   },
@@ -82,7 +93,7 @@ export const clientRoutes = [
     path: "/table",
     name: "Testing",
     icon: "content_paste",
-    component: TableList,
+    component: DashboardPage,
     layout: "/admin"
   },
 ];
