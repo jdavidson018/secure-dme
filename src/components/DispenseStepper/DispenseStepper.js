@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from "prop-types";
 import MainForm from 'views/Form/MainForm';
+import ProductLookup from './ProductLookup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +29,7 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return 'Enter the pin numer';
+      return <ProductLookup/>;
     case 1:
       return (<MainForm/>);
     case 2:
