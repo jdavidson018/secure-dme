@@ -39,6 +39,8 @@ import {
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import { useAuth0 } from '@auth0/auth0-react';
+import { Stepper } from "@material-ui/core";
+import DispenseStepper from "components/DispenseStepper/DispenseStepper";
 
 const useStyles = makeStyles(styles);
 
@@ -72,16 +74,17 @@ export default function Dashboard() {
   return (
     <div>
       <GridContainer>
-      <GridItem xs={12} sm={12} md={6}>
+      <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Dispense and Item</h4>
+              <h4 className={classes.cardTitleWhite}>Dispense an Item</h4>
               <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
+                Complete the step below to dispense and item from your inventory.
               </p>
             </CardHeader>
             <CardBody>
-              <Table
+              <DispenseStepper/>
+              {/* <Table
                 tableHeaderColor="warning"
                 tableHead={["ID", "Name", "Salary", "Country"]}
                 tableData={[
@@ -90,11 +93,11 @@ export default function Dashboard() {
                   ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
                   ["4", "Philip Chaney", "$38,735", "Korea, South"]
                 ]}
-              />
+              /> */}
             </CardBody>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={12} md={6}>
+        <GridItem xs={12} sm={12} md={12}>
           <CustomTabs
             title="Tasks:"
             headerColor="primary"

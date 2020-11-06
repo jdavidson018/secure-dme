@@ -70,71 +70,65 @@ const useStyles = makeStyles(styles);
 export const MainForm = props => {
     const classes = useStyles();
     return (
-        <GridContainer>
-            <GridItem xs={12} sm={12} md={8}>
-                <Card>
-                    <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Main Form</h4>
-                    </CardHeader>
-                    <CardBody>
-                        <Formik
-                            enableReinitialize
-                            initialValues={{
-                                firstName: "", lastName: "", phone: "", dateOfBirth: "", sex: "", primaryInsurancePolicyNumber: "", primaryInsuranceGroupNumber: "", primaryInsuranceAddress: "",
-                                primaryInsurancePhone: "", primaryInsuranceName: "", primaryInsuranceDateOfBirth: "", secondaryInsurancePolicyNumber: "", secondaryInsuranceGroupNumber: "", secondaryInsuranceAddress: "",
-                                secondaryInsurancePhone: "", secondaryInsuranceName: "", secondaryInsuranceDateOfBirth: "", icd10DiagnosisCode: "", productReceived: "", rightOrLeft: "", dateOfService: ""
-                            }}
-                            onSubmit={(data, { setSubmitting, resetForm }) => {
-                                setSubmitting(true);
 
-                                //submit logic goes here
+        <Card>
+            <CardBody>
+                <Formik
+                    enableReinitialize
+                    initialValues={{
+                        firstName: "", lastName: "", phone: "", dateOfBirth: "", sex: "", primaryInsurancePolicyNumber: "", primaryInsuranceGroupNumber: "", primaryInsuranceAddress: "",
+                        primaryInsurancePhone: "", primaryInsuranceName: "", primaryInsuranceDateOfBirth: "", secondaryInsurancePolicyNumber: "", secondaryInsuranceGroupNumber: "", secondaryInsuranceAddress: "",
+                        secondaryInsurancePhone: "", secondaryInsuranceName: "", secondaryInsuranceDateOfBirth: "", icd10DiagnosisCode: "", productReceived: "", rightOrLeft: "", dateOfService: ""
+                    }}
+                    onSubmit={(data, { setSubmitting, resetForm }) => {
+                        setSubmitting(true);
 
-                                setSubmitting(false);
-                            }}>
-                            {({ values, isSubmitting, errors }) => (
-                                <Form>
-                                    {/* <GridItem xs={12} sm={12} md={3}><MyTextField label="First Name" name="firstName" type="input"></MyTextField></GridItem> */}
+                        //submit logic goes here
 
-                                    <GridContainer>
-                                        <GridItem xs={12} sm={12} md={6}><MyTextField name="firstName" label="First Name" formControlProps={{ fullWidth: true }} /></GridItem>
-                                        <GridItem xs={12} sm={12} md={6}><MyTextField label="Last Name" name="lastName" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Phone" name="phone" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Date Of Birth" name="dateOfBirth" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Sex" name="sex" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                        setSubmitting(false);
+                    }}>
+                    {({ values, isSubmitting, errors }) => (
+                        <Form>
+                            {/* <GridItem xs={12} sm={12} md={3}><MyTextField label="First Name" name="firstName" type="input"></MyTextField></GridItem> */}
 
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Policy Number" name="primaryInsurancePolicyNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Group Number" name="primaryInsuranceGroupNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Address" name="primaryInsuranceAddress" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Phone" name="primaryInsurancePhone" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Name" name="primaryInsuranceName" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Date Of Birth" name="primaryInsuranceDateOfBirth" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={6}><MyTextField name="firstName" label="First Name" formControlProps={{ fullWidth: true }} /></GridItem>
+                                <GridItem xs={12} sm={12} md={6}><MyTextField label="Last Name" name="lastName" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Phone" name="phone" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Date Of Birth" name="dateOfBirth" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Sex" name="sex" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
 
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Policy Number" name="secondaryInsurancePolicyNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Group Number" name="secondaryInsuranceGroupNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Address" name="secondaryInsuranceAddress" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Phone" name="secondaryInsurancePhone" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Name" name="secondaryInsuranceName" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Date Of Birth" name="secondaryInsuranceDateOfBirth" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Policy Number" name="primaryInsurancePolicyNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Group Number" name="primaryInsuranceGroupNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Address" name="primaryInsuranceAddress" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Phone" name="primaryInsurancePhone" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Name" name="primaryInsuranceName" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Date Of Birth" name="primaryInsuranceDateOfBirth" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
 
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="ICD-10 Diagnosis Code" name="icd10DiagnosisCode" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Product Received" name="productReceived" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Right or Left" name="rightOrLeft" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                        <GridItem xs={12} sm={12} md={3}><MyTextField label="Date of Service" name="dateOfService" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
-                                    </GridContainer>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Policy Number" name="secondaryInsurancePolicyNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Group Number" name="secondaryInsuranceGroupNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Address" name="secondaryInsuranceAddress" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Phone" name="secondaryInsurancePhone" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Name" name="secondaryInsuranceName" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Date Of Birth" name="secondaryInsuranceDateOfBirth" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
 
-                                    <div>
-                                        <Button className="btn-success" disabled={isSubmitting} type="submit">Submit</Button>
-                                    </div>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="ICD-10 Diagnosis Code" name="icd10DiagnosisCode" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Product Received" name="productReceived" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Right or Left" name="rightOrLeft" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                <GridItem xs={12} sm={12} md={3}><MyTextField label="Date of Service" name="dateOfService" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                            </GridContainer>
 
-                                    <pre>{JSON.stringify(values, null, 2)}</pre>
-                                    <pre>{JSON.stringify(errors, null, 2)}</pre>
-                                </Form>
-                            )}
-                        </Formik>
-                    </CardBody>
-                </Card>
-            </GridItem>
-        </GridContainer>
+                            <div>
+                                <Button className="btn-success" disabled={isSubmitting} type="submit">Submit</Button>
+                            </div>
+
+                            <pre>{JSON.stringify(values, null, 2)}</pre>
+                            <pre>{JSON.stringify(errors, null, 2)}</pre>
+                        </Form>
+                    )}
+                </Formik>
+            </CardBody>
+        </Card>
     )
 }
 
