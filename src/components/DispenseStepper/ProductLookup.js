@@ -104,7 +104,7 @@ const ProductLookup = props => {
     const searchForProduct = async () => {
         try {
             const token = await getAccessTokenSilently();
-            const product = await fetch('https://localhost:5001/product/1', {
+            const product = await SecureDMEAPI.get('https://localhost:5001/product/1', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
