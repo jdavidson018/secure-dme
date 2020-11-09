@@ -90,9 +90,9 @@ export const MainForm = props => {
                         firstName: data.firstName,
                         lastName: data.lastName,
                         phoneNumber: data.phoneNumber,
-                        DOB: data.DOB,
+                        DOB: new Date(),
                         gender: data.gender,
-                        insuranceCarrierID: data.insuranceCarrierID,
+                        InsuranceCarrierID: 1,
                         policyNumber: data.primaryInsurancePolicyNumber,
                         groupNumber: data.primaryInsuranceGroupNumber,
                         streetAddress: data.primaryInsuranceAddress,
@@ -101,11 +101,12 @@ export const MainForm = props => {
                         country: data.primaryInsuranceCountry,
                         PrimaryInsuredFirstName: data.primaryInsuredFirstName,
                         PrimaryInsuredLastName: data.primaryInsuredLastName,
-                        SecondaryInsuranceCarrierID: data.secondaryInsuranceCarrierID
+                        PrimaryInsuredDOB: new Date(),
+                        SecondaryInsuranceCarrierID: 1
                     }
 
                     const token = await getAccessTokenSilently();
-                    const result = await SecureDMEAPI.post('https://localhost:5001/patient', {newPatient}, {  
+                    const result = await SecureDMEAPI.post('https://localhost:5001/patient', newPatient, {  
                         headers: {
                             Authorization: `Bearer ${token}`
                        },
