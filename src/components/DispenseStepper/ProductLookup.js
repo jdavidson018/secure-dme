@@ -36,8 +36,7 @@ const MyTextField = ({ ...props }) => {
         // <TextField fullWidth id="standard-basic" label={props.labelText} disabled={props.disabled} type={props.type} {...field} helperText={errorText} error={!!errorText} />
     )
 }
-
-const styles = {
+const styles = theme => ({
     cardCategoryWhite: {
         color: "rgba(255,255,255,.62)",
         margin: "0",
@@ -56,8 +55,11 @@ const styles = {
     },
     centered: {
         textAlign: "center"
+    },
+    padded: {
+        marginLeft: theme.spacing(5)
     }
-};
+});
 
 const ProductLookup = props => {
     const useStyles = makeStyles(styles);
@@ -77,8 +79,8 @@ const ProductLookup = props => {
         },
     };
 
-    const ProductProgress = props => {
-
+    const ProductProgress = () => {
+        console.log(props);
         if (searching) {
             return (
                 <div className={classes.centered}>
@@ -87,30 +89,39 @@ const ProductLookup = props => {
                 </div>
             )
         } else if (loaded) {
-            return (
-                <div>
-                    <Typography>Product will be displayed here</Typography>
-                </div>
-            )
+            let product = props.product ? props.product : false;
+            if (product) {
+                return (
+                    <div className={classes.padded}>
+                        <Typography><strong>Name: </strong>{props.product?.name}</Typography>
+                        <Typography><strong>Brand: </strong>{props.product?.brand.name}</Typography>
+                        <Typography><strong>Size: </strong>{props.product?.size}</Typography>
+                        <Typography><strong>Side: </strong>{props.product?.isLeft ? "Left" : "Right"}</Typography >
+                    </div>
+                )
+            } else {
+                return (
+                    <Typography variant="h5" align="center">The product could not be found</Typography>
+                )
+            }
         } else {
             return (
-                <div>
+                <div className={classes.centered}>
                     <Typography>Please enter a 4 digit pin and select submit</Typography>
                 </div>
             )
         }
     }
 
-    const searchForProduct = async () => {
+    const searchForProduct = async (pin) => {
         try {
             const token = await getAccessTokenSilently();
-            const product = await SecureDMEAPI.get('https://localhost:5001/product/1', {
+            const product = await SecureDMEAPI.get(`https://localhost:5001/product/getProductByPin/${pin}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            console.log(product);
+            props.setProduct(product.data.data);
             setSearching(false);
             setLoaded(true);
         } catch (e) {
@@ -125,13 +136,12 @@ const ProductLookup = props => {
                 <Formik
                     enableReinitialize
                     initialValues={{
-                        pin: "", lastName: "", phone: "", dateOfBirth: ""
+                        pin: ""
                     }}
                     onSubmit={(data, { setSubmitting, resetForm }) => {
                         setSubmitting(true);
                         setSearching(true);
-                        //submit logic goes here
-                        searchForProduct();
+                        searchForProduct(data.pin);
                         setSubmitting(false);
                     }}>
                     {({ values, isSubmitting, errors }) => (
@@ -140,13 +150,9 @@ const ProductLookup = props => {
                                 <GridItem xs={12} sm={12} md={6}><MyTextField name="pin" label="Product Pin" formControlProps={{ fullWidth: true }} /></GridItem>
                                 <GridItem xs={12} sm={12} md={6}><ProductProgress /></GridItem>
                             </GridContainer>
-
                             <div>
-                                <Button className="btn-success" disabled={isSubmitting} type="submit">Submit</Button>
+                                <Button className="btn-success" disabled={isSubmitting} type="submit">Search</Button>
                             </div>
-
-                            <pre>{JSON.stringify(values, null, 2)}</pre>
-                            <pre>{JSON.stringify(errors, null, 2)}</pre>
                         </Form>
                     )}
                 </Formik>
@@ -156,10 +162,8 @@ const ProductLookup = props => {
 }
 
 ProductLookup.propTypes = {
-    className: PropTypes.string,
-    plain: PropTypes.bool,
-    profile: PropTypes.bool,
-    children: PropTypes.node
+    product: null,
+    setProduct: null
 };
 
 export default ProductLookup;

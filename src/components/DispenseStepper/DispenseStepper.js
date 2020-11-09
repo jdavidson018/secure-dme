@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -20,30 +20,49 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
+  centered: {
+    textAlign: "center"
+},
 }));
 
 function getSteps() {
   return ['Product Information', 'Patient Information', 'Patient Signature', 'Physician Signature'];
 }
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <ProductLookup/>;
-    case 1:
-      return (<MainForm/>);
-    case 2:
-      return 'Collect the patients signature';
-    default:
-      return 'Collect the physicians signature';
-  }
-}
-
 export default function DispenseStepper() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
+  const [product, setProduct] = useState(null);
+  const [nextEnabled, setNextEnabled] = useState(false);
   const steps = getSteps();
+
+  useEffect(() => {
+    switch (activeStep) {
+      case 0:
+        if (product) {
+          setNextEnabled(true);
+        } else {
+          setNextEnabled(false);
+        }
+      case 1:
+      case 2:
+      default:
+    }
+  }, [product, activeStep]);
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <ProductLookup product={product} setProduct={setProduct} />;
+      case 1:
+        return (<MainForm />);
+      case 2:
+        return 'Collect the patients signature';
+      default:
+        return 'Collect the physicians signature';
+    }
+  }
 
   const isStepOptional = (step) => {
     return false;
@@ -117,34 +136,35 @@ export default function DispenseStepper() {
             </Button>
           </div>
         ) : (
-          <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
-              <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                Back
-              </Button>
-              {isStepOptional(activeStep) && (
+              <div className={classes.centered}>
+                <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                  Back
+                </Button>
+                {isStepOptional(activeStep) && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSkip}
+                    className={classes.button}
+                  >
+                    Skip
+                  </Button>
+                )}
+
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleSkip}
+                  onClick={handleNext}
                   className={classes.button}
+                  disabled={!nextEnabled}
                 >
-                  Skip
+                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                 </Button>
-              )}
-
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-              >
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-              </Button>
+              </div>
+              <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             </div>
-          </div>
-        )}
+          )}
       </div>
     </div>
   );
@@ -152,8 +172,8 @@ export default function DispenseStepper() {
 
 
 DispenseStepper.propTypes = {
-    className: PropTypes.string,
-    plain: PropTypes.bool,
-    profile: PropTypes.bool,
-    children: PropTypes.node
+  className: PropTypes.string,
+  plain: PropTypes.bool,
+  profile: PropTypes.bool,
+  children: PropTypes.node
 };
