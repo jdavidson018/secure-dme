@@ -110,10 +110,9 @@ export const MainForm = props => {
                         headers: {
                             Authorization: `Bearer ${token}`
                        },
-                        
                     }
                     );
-
+                    props.setPatient(result.data.data);
                     console.log(result);
 
                 } catch (err) {
@@ -128,7 +127,7 @@ export const MainForm = props => {
                 <Form>
                     <Card>
                         {/* <GridItem xs={12} sm={12} md={3}><MyTextField label="First Name" name="firstName" type="input"></MyTextField></GridItem> */}
-                        <CardHeader color="primary">
+                        <CardHeader color="info">
                             <h4 className={classes.cardTitleWhite}>Patient Information</h4>
                         </CardHeader>
                         <CardBody>
@@ -144,7 +143,7 @@ export const MainForm = props => {
                     </Card>
 
                     <Card>
-                        <CardHeader color="primary">
+                        <CardHeader color="info">
                             <h4 className={classes.cardTitleWhite}>Insurance Information</h4>
                         </CardHeader>
 

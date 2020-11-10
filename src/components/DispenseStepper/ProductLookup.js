@@ -19,6 +19,7 @@ import Lottie from "react-lottie";
 import scanDocumentData from "../../assets/lotties/scan-document";
 import SecureDMEAPI from "../../api/SecureDMEAPI";
 import { useAuth0 } from '@auth0/auth0-react';
+import { blackColor } from "assets/jss/material-dashboard-react";
 
 const MyTextField = ({ ...props }) => {
     const [field, meta] = useField(props);
@@ -53,11 +54,21 @@ const styles = theme => ({
         marginBottom: "3px",
         textDecoration: "none"
     },
-    centered: {
-        textAlign: "center"
+    centeredText: {
+        textAlign: "center",
+    },
+    blackText: {
+        color: blackColor,
+        fontWeight: "bold"
+    },
+    centeredContent: {
+        justify: "center",
     },
     padded: {
         marginLeft: theme.spacing(5)
+    },
+    centerGrid: {
+        margin: "auto",
     }
 });
 
@@ -83,32 +94,57 @@ const ProductLookup = props => {
         console.log(props);
         if (searching) {
             return (
-                <div className={classes.centered}>
-                    <Lottie options={scanOptions} height={200} width={200} />
-                    <Typography>Searching for product...</Typography>
-                </div>
+                <Card>
+                    <CardHeader color="info">
+                        <Typography>Searching for product...</Typography>
+                    </CardHeader>
+                    <CardBody>
+                        <div className={classes.centered}>
+                            <Lottie options={scanOptions} height={200} width={200} />
+                        </div>
+                    </CardBody>
+                </Card>
             )
         } else if (loaded) {
             let product = props.product ? props.product : false;
             if (product) {
                 return (
-                    <div className={classes.padded}>
-                        <Typography><strong>Name: </strong>{props.product?.name}</Typography>
-                        <Typography><strong>Brand: </strong>{props.product?.brand.name}</Typography>
-                        <Typography><strong>Size: </strong>{props.product?.size}</Typography>
-                        <Typography><strong>Side: </strong>{props.product?.isLeft ? "Left" : "Right"}</Typography >
-                    </div>
+                    <Card>
+                        <CardHeader color="success">
+                            <Typography className={classes.blackText}>Item Found</Typography>
+                        </CardHeader>
+                        <CardBody className={classes.padded}>
+                            <Typography><strong>Name: </strong>{props.product?.name}</Typography>
+                            <Typography><strong>Brand: </strong>{props.product?.brand.name}</Typography>
+                            <Typography><strong>Size: </strong>{props.product?.size}</Typography>
+                            <Typography><strong>Side: </strong>{props.product?.isLeft ? "Left" : "Right"}</Typography >
+                        </CardBody>
+                    </Card>
                 )
             } else {
                 return (
-                    <Typography variant="h5" align="center">The product could not be found</Typography>
+                    <Card>
+                        <CardHeader color="danger">
+                            <Typography className={classes.blackText}>Whoops</Typography>
+                        </CardHeader>
+                        <CardBody className={classes.padded}>
+                            <Typography variant="h5" align="center">The product could not be found</Typography>
+                        </CardBody>
+                    </Card>
                 )
             }
         } else {
             return (
-                <div className={classes.centered}>
-                    <Typography>Please enter a 4 digit pin and select submit</Typography>
-                </div>
+                <Card>
+                    <CardHeader color="info">
+                        <Typography>Please search a 4 digit pin</Typography>
+                    </CardHeader>
+                    <CardBody>
+                        <div className={classes.centered}>
+                            <Lottie options={scanOptions} isStopped height={200} width={200} />
+                        </div>
+                    </CardBody>
+                </Card>
             )
         }
     }
@@ -145,15 +181,26 @@ const ProductLookup = props => {
                         setSubmitting(false);
                     }}>
                     {({ values, isSubmitting, errors }) => (
-                        <Form>
-                            <GridContainer>
-                                <GridItem xs={12} sm={12} md={6}><MyTextField name="pin" label="Product Pin" formControlProps={{ fullWidth: true }} /></GridItem>
-                                <GridItem xs={12} sm={12} md={6}><ProductProgress /></GridItem>
-                            </GridContainer>
-                            <div>
-                                <Button className="btn-success" disabled={isSubmitting} type="submit">Search</Button>
-                            </div>
-                        </Form>
+                        <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={10}>
+                                <Form>
+                                    <Card>
+                                        <CardHeader color="info">
+                                            <Typography>Product Lookup</Typography>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <GridContainer justify="center">
+                                                <GridItem xs={12} sm={12} md={4}>
+                                                    <MyTextField name="pin" label="Product Pin" formControlProps={{ fullWidth: true }} />
+                                                    <Button className="btn-success" disabled={isSubmitting} type="submit">Search</Button>
+                                                </GridItem>
+                                                <GridItem xs={12} sm={12} md={6}><ProductProgress /></GridItem>
+                                            </GridContainer>
+                                        </CardBody>
+                                    </Card>
+                                </Form>
+                            </GridItem>
+                        </GridContainer>
                     )}
                 </Formik>
             </CardBody>

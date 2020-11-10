@@ -11,7 +11,13 @@ const cardBodyStyle = {
   },
   cardBodyProfile: {
     marginTop: "15px"
-  }
+  },
+  successCardBody: {
+    backgroundColor: "#c7ffc9"
+  },
+  errorCardBody: {
+    backgroundColor: "#f7c0b7"
+  },
 };
 
 export default cardBodyStyle;
