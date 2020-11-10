@@ -195,7 +195,7 @@ export default function DispenseStepper() {
         })}
       </Stepper>
       <div>
-        {activeStep === 0 ? (
+        {activeStep === steps.length ? (
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={8}>
               <Typography variant="h5" className={classes.centered}>
