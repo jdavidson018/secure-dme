@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, useField, Field } from "formik"
 import { FormControl } from "@material-ui/core"
-// import * as yup from "yup";
+import * as yup from "yup";
 
 // core components
 import GridItem from "components/Grid/GridItem.js";
@@ -49,8 +49,7 @@ const DatePickerField = ({ field, form, ...props }) => {
                     }
                 }}
                 // if you are using custom validation schema you probably want to pass `true` as third argument
-                onChange={date => form.setFieldValue(field.name, date, false)}
-                invalidDateMessage={""}
+                onChange={date => form.setFieldValue(field.name, date, true)}
             />
         </FormControl>
 
@@ -99,6 +98,33 @@ export const MainForm = props => {
     const classes = useStyles();
     const { getAccessTokenSilently } = useAuth0();
 
+    var validationSchema = yup.object({
+        firstName: yup.string().required("First Name is a required field"),
+        lastName: yup.string().required("Last Name is a required field"),
+        phoneNumber: yup.string().required("Phone Number is a required field"),
+        DOB: yup.string().required("Date of Birth is a required field"),
+        gender: yup.string().required("Gender is a required field"),
+        insuranceCarrierID: yup.string().required("Insurnace Carrier ID is a required field"),
+        primaryInsurancePolicyNumber: yup.string().required("Primary Insurance Policy Number is a required field"),
+        primaryInsuranceGroupNumber: yup.string().required("Primary Insurance Group Number is a required field"),
+
+        primaryInsuranceAddress: yup.string().required("Primary Insurance Address is a required field"),
+        primaryInsuranceState: yup.string().required("Primary Insurance State is a required field"),
+        primaryInsuranceZipCode: yup.string().required("Primary Insurance Zip Code is a required field"),
+        primaryInsuranceCountry: yup.string().required("Primary Insurance Country is a required field"),
+        primaryInsuredFirstName: yup.string().required("Primary Insurance First Name is a required field"),
+        primaryInsuredLastName: yup.string().required("Primary Insurance Last Name is a required field"),
+        primaryInsuranceDateOfBirth: yup.string().required("Primary Insurance Date of Birth is a required field"),
+        secondaryInsuranceCarrierID: yup.string().required("Secondary Carrier ID is a required field"),
+
+
+
+
+        // firstName: "", lastName: "", phoneNumber: "", DOB: "", gender: "", insuranceCarrierID: "", primaryInsurancePolicyNumber: "", primaryInsuranceGroupNumber: "", primaryInsuranceAddress: "",
+        // primaryInsuranceState: "", primaryInsuranceZipCode: "", primaryInsuranceCountry: "", primaryInsuredFirstName: "", primaryInsuredLastName: "", primaryInsuranceDateOfBirth: "", secondaryInsuranceCarrierID: "",
+        // icd10DiagnosisCode: "", productReceived: "", dateOfService: ""
+    })
+
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -107,8 +133,9 @@ export const MainForm = props => {
                 initialValues={{
                     firstName: "", lastName: "", phoneNumber: "", DOB: "", gender: "", insuranceCarrierID: "", primaryInsurancePolicyNumber: "", primaryInsuranceGroupNumber: "", primaryInsuranceAddress: "",
                     primaryInsuranceState: "", primaryInsuranceZipCode: "", primaryInsuranceCountry: "", primaryInsuredFirstName: "", primaryInsuredLastName: "", primaryInsuranceDateOfBirth: "", secondaryInsuranceCarrierID: "",
-                    icd10DiagnosisCode: "", productReceived: "", dateOfService: "", rightOrLeft: "right"
+                    icd10DiagnosisCode: "", productReceived: "", dateOfService: "", rightOrLeft: ""
                 }}
+                validationSchema={validationSchema}
                 onSubmit={async (data, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
 
@@ -164,8 +191,18 @@ export const MainForm = props => {
                                     <GridItem xs={12} sm={12} md={6}><MyTextField label="Last Name" name="lastName" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
                                     <GridItem xs={12} sm={12} md={3}><MyTextField label="Phone Number" name="phoneNumber" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
                                     <GridItem xs={12} sm={11} md={2}><Field label="Date of Birth" name={"DOB"} component={DatePickerField}></Field></GridItem>
-                                    <GridItem xs={12} sm={12} md={3}><MyTextField label="Gender" name="gender" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
                                     <GridItem xs={12} sm={12} md={3}><MyTextField label="Insurance Carrier ID" name="insuranceCarrierID" formControlProps={{ fullWidth: true }}></MyTextField></GridItem>
+                                    <GridItem xs={12} sm={12} md={2}>
+                                        <FormControl className="MuiFormControl-root undefined makeStyles-formControl-95 MuiFormControl-fullWidth">
+                                            <div>Gender:</div>
+                                            <Field
+                                                name="gender"
+                                                horizontal={true}
+                                                component={FormikRadioGroup}
+                                                options={[{ value: 'male', label: 'Male' }, { value: 'female', label: 'Female' }]}
+                                            />
+                                        </FormControl>
+                                    </GridItem>
                                 </GridContainer>
                             </CardBody>
                         </Card>
@@ -191,7 +228,7 @@ export const MainForm = props => {
                             </CardBody>
                         </Card>
 
-                        <Card>
+                        {/* <Card>
                             <CardHeader color="info">
                                 <h4 className={classes.cardTitleWhite}>Dispense Information</h4>
                             </CardHeader>
@@ -214,7 +251,7 @@ export const MainForm = props => {
                                     </GridItem>
                                 </GridContainer>
                             </CardBody>
-                        </Card>
+                        </Card> */}
                         <div>
                             <Button className="btn-success" disabled={isSubmitting} type="submit">Submit</Button>
                         </div>

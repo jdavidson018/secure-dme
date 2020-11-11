@@ -25,7 +25,8 @@ export default function CustomInput(props) {
     error,
     success,
     name,
-    field
+    field,
+    helperText
   } = props;
 
   const labelClasses = classNames({
@@ -65,6 +66,7 @@ export default function CustomInput(props) {
         name={name}
         {...inputProps}
         {...field}
+        helperText={helperText}
       />
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />
