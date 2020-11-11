@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Formik, Form, useField } from "formik"
-import { TextField, Checkbox, Radio, FormControlLabel, Typography } from "@material-ui/core"
+import {Typography } from "@material-ui/core"
 // import * as yup from "yup";
-import InputLabel from "@material-ui/core/InputLabel";
+
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -10,11 +10,8 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
-import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
 import { makeStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
 import Lottie from "react-lottie";
 import scanDocumentData from "../../assets/lotties/scan-document";
 import SecureDMEAPI from "../../api/SecureDMEAPI";

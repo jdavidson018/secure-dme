@@ -15,7 +15,6 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import logo from "assets/img/reactlogo.png";
 import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from "components/Login/LoginButton";
 
 let ps;
 
