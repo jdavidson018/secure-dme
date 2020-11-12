@@ -38,6 +38,7 @@ import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
 import LoginButton from "components/Login/LoginButton";
 import MainForm from "views/Form/MainForm";
+import ProviderDashboard from "views/ProviderDashboard/ProviderDashboard";
 
 
 export const unAuthorizedRoutes = [
@@ -103,7 +104,7 @@ export const providerRoutes = [
     path: "/dashboard",
     name: "Dashboard",
     icon: Dashboard,
-    component: DashboardPage,
+    component: ProviderDashboard,
     layout: "/admin"
   },
   {
