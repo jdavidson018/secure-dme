@@ -32,13 +32,15 @@ export default function Admin({ ...rest }) {
   const { isAuthenticated, user } = useAuth0();
 
   let routes = isAuthenticated ? dashboardRoutes : unAuthorizedRoutes;
-
+  let logoText = "Secure DME"
   console.log(user);
-  if(user){
+  if (user) {
     let role = user["http://localhost:3000/role"];
-    if(role === "Client"){
+    if (role === "Client") {
       routes = clientRoutes;
-    }else if(role === "Provider"){
+      logoText = "Sacred Heart"
+    } else if (role === "Provider") {
+      logoText = "Orthosource"
       routes = providerRoutes;
     }
     console.log(role);
@@ -97,7 +99,7 @@ export default function Admin({ ...rest }) {
       <div className={classes.wrapper}>
         <Sidebar
           routes={routes}
-          logoText={"Secure DME"}
+          logoText={logoText}
           logo={logo}
           handleDrawerToggle={handleDrawerToggle}
           open={mobileOpen}
@@ -118,8 +120,8 @@ export default function Admin({ ...rest }) {
               <div className={classes.container}>{switchRoutes}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
+              <div className={classes.map}>{switchRoutes}</div>
+            )}
           {getRoute() ? <Footer /> : null}
         </div>
       </div>
@@ -150,8 +152,8 @@ export default function Admin({ ...rest }) {
               <div className={classes.container}>{switchRoutes}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
+              <div className={classes.map}>{switchRoutes}</div>
+            )}
           {getRoute() ? <Footer /> : null}
         </div>
       </div>
